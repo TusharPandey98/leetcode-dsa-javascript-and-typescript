@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+
+# Jest coverage directory
+coverage/
+
+# Environment variables
+.env
+
+# Editor-specific files
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# macOS specific files
+.DS_Store
