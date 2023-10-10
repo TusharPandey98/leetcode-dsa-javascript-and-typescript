@@ -50,18 +50,41 @@
 //     return true;
 // }
 
+// const isAnagram = (s, t) => {
+//     if (s.length !== t.length) return false;
+
+//     const charCount = {};
+
+//     for (let i = 0; i < s.length; i++) {
+//         charCount[s[i]] = (charCount[s[i]] || 0) + 1;
+//         charCount[t[i]] = (charCount[t[i]] || 0) - 1;
+//     }
+
+//     return Object.values(charCount).every(count => count === 0);
+// };
+
 const isAnagram = (s, t) => {
     if (s.length !== t.length) return false;
 
-    const charCount = {};
+    const charCount = new Map();
 
-    for (let i = 0; i < s.length; i++) {
-        charCount[s[i]] = (charCount[s[i]] || 0) + 1;
-        charCount[t[i]] = (charCount[t[i]] || 0) - 1;
+    for (const char of s) {
+        charCount.set(char, (charCount.get(char) || 0) + 1);
     }
 
-    return Object.values(charCount).every(count => count === 0);
+    for (const char of t) {
+        if (!charCount.has(char)) return false;
+        const count = charCount.get(char);
+        if (count === 1) {
+            charCount.delete(char);
+        } else {
+            charCount.set(char, count - 1);
+        }
+    }
+
+    return charCount.size === 0;
 };
+
 
 
 // console.log(isAnagram('anagram', 'raagnma'));
